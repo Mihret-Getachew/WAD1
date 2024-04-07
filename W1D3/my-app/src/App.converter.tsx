@@ -1,21 +1,30 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 
 function TempretureConverter() {
-  const [celcius, setCelcius] = useState<number>(0);
-  const [farhinet, setFarhinet] = useState<number>(0);
-  const clickhandler = () => {
-    setFarhinet(celcius * 1.8 + 32);
-  };
-  const changeHandeler = (e: ChangeEvent<HTMLInputElement>) => {
-    setCelcius(Number(e.currentTarget.value));
+  // const [celcius, setCelcius] = useState<number>(0);
+
+  // // const clickhandler = () => {
+  // //
+  //   const changeHandeler = (e: ChangeEvent<HTMLInputElement>) => {
+  //     setFarhinet(+e.currentTarget.value)
+  //     // setCelcius(Number(e.currentTarget.value));
+  // }
+  const [farhinet, setFarhinet] = useState<number | null>(null);
+
+  const onclickhandler = (e: MouseEvent<HTMLButtonElement>) => {
+    const inputValue = parseInt(
+      (document.getElementById("inputId") as HTMLInputElement).value
+    );
+    setFarhinet(inputValue * 1.8 + 32);
   };
 
   return (
     <div>
-      <button onClick={clickhandler}>convert</button>
-      <input type="text" onChange={changeHandeler} />
+      <button onClick={onclickhandler}>convert</button>
+      <input id="inputId" type="text" />
       <h2>{farhinet}</h2>
     </div>
   );
 }
+
 export default TempretureConverter;
