@@ -1,28 +1,27 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useRef, useState } from "react";
 
 function TempretureConverter() {
-  // const [celcius, setCelcius] = useState<number>(0);
+  const [tempreture, setTempreture] = useState<{
+    celcius: number;
+    farhinet: number;
+  }>({ celcius: 0, farhinet: 0 });
 
-  // // const clickhandler = () => {
-  // //
-  //   const changeHandeler = (e: ChangeEvent<HTMLInputElement>) => {
-  //     setFarhinet(+e.currentTarget.value)
-  //     // setCelcius(Number(e.currentTarget.value));
-  // }
-  const [farhinet, setFarhinet] = useState<number | null>(null);
+  const userRef = useRef<HTMLInputElement>(null);
 
-  const onclickhandler = (e: MouseEvent<HTMLButtonElement>) => {
-    const inputValue = parseInt(
-      (document.getElementById("inputId") as HTMLInputElement).value
-    );
-    setFarhinet(inputValue * 1.8 + 32);
+  //
+  const changeHandeler = () => {
+    const inputValue = Number(userRef.current!.value);
+    const farhient = inputValue * 1.8 + 32;
+
+    setTempreture({ celcius: inputValue, farhinet: farhient });
   };
 
   return (
     <div>
-      <button onClick={onclickhandler}>convert</button>
-      <input id="inputId" type="text" />
-      <h2>{farhinet}</h2>
+      <button onClick={changeHandeler}>convert</button>
+      <input id="inputId" type="text" ref={userRef} />
+      <h2>C{tempreture.celcius}</h2>
+      <h2>F{tempreture.farhinet}</h2>
     </div>
   );
 }
