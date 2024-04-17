@@ -10,6 +10,11 @@ type Props = {
 export default function Footer(props: Props) {
   const { todo, allChecked, allDeleteTask } = props;
   const checkedCount = todo.filter((item) => item.done == true).length;
+  const allDeleteHandler = () => {
+    if (window.confirm("are you sure?")) {
+      allDeleteTask();
+    }
+  };
   return (
     <div className="todo-footer">
       <label>
